@@ -1,6 +1,7 @@
 package pl.axxxon.weka.out;
 
 import java.io.*;
+import java.util.Properties;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,19 +11,26 @@ import java.io.*;
  */
 public final class IOHelper{
 
+    private static final String EXTRA_PROPERTIES = "extra.properties";
+
     public static void write(String... params){
         for (String s:params){
-            System.out.print(String.format("%s\n", s));
+            println(s);
         }
     }
 
-    public static void write(char... params){
-        for (char s:params){
-            System.out.print(String.format("%s\n", s));
+    public static void write(Object... params){
+        for (Object s:params){
+            println(String.valueOf(s));
         }
     }
 
-    public static Reader readFileAsStream(String file)
+    private static void println(String s) {
+        System.out.println(s);
+    }
+
+
+    public static Reader getFileReader(String file)
     {
         try {
             InputStream inputStream = new FileInputStream(file);
@@ -30,10 +38,22 @@ public final class IOHelper{
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        catch (IOException e){
+            e.printStackTrace();
+        }
 
         return null;
     }
 
+    public static Properties getProperties(){
+        Properties properties = new Properties();
+        try {
+            properties.load(getFileReader(EXTRA_PROPERTIES));
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
 
+        return properties;
+    }
 
 }

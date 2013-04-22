@@ -25,6 +25,10 @@ public final class IOHelper{
         }
     }
 
+    public static void wfmt(String format,Object... params){
+       println(String.format(format,params));
+    }
+
     private static void println(String s) {
         System.out.println(s);
     }
